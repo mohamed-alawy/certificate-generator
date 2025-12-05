@@ -66,35 +66,15 @@ Open browser at: `http://localhost:5000`
 
 ## 🚀 Deployment on Server
 
-### Quick Method
 ```bash
 # Run in background
 nohup python app.py > app.log 2>&1 &
-```
 
-### With Systemd (Recommended)
-Create file `/etc/systemd/system/certificate-generator.service`:
-```ini
-[Unit]
-Description=Certificate Generator
-After=network.target
+# Stop the service
+pkill -f 'python.*app.py'
 
-[Service]
-Type=simple
-User=your-user
-WorkingDirectory=/path/to/certificate-generator
-ExecStart=/path/to/certificate-generator/venv/bin/python app.py
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Then:
-```bash
-sudo systemctl enable certificate-generator
-sudo systemctl start certificate-generator
-sudo systemctl status certificate-generator
+# Check logs
+tail -f app.log
 ```
 
 ## 📝 Usage
