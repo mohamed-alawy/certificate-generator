@@ -1,4 +1,4 @@
-# 📜 Certificate Generator Dashboard
+# 📜 Certificate Generator
 
 <div align="center">
 
@@ -34,8 +34,8 @@ A comprehensive and integrated system for automatically generating certificates 
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/mohamed-alawy/certificate-dashboard.git
-cd certificate-dashboard
+git clone https://github.com/mohamed-alawy/certificate-generator.git
+cd certificate-generator
 ```
 
 ### 2. Create Virtual Environment
@@ -73,17 +73,17 @@ nohup python app.py > app.log 2>&1 &
 ```
 
 ### With Systemd (Recommended)
-Create file `/etc/systemd/system/certificate-dashboard.service`:
+Create file `/etc/systemd/system/certificate-generator.service`:
 ```ini
 [Unit]
-Description=Certificate Generator Dashboard
+Description=Certificate Generator
 After=network.target
 
 [Service]
 Type=simple
 User=your-user
-WorkingDirectory=/path/to/certificate-dashboard
-ExecStart=/path/to/certificate-dashboard/venv/bin/python app.py
+WorkingDirectory=/path/to/certificate-generator
+ExecStart=/path/to/certificate-generator/venv/bin/python app.py
 Restart=always
 
 [Install]
@@ -92,9 +92,9 @@ WantedBy=multi-user.target
 
 Then:
 ```bash
-sudo systemctl enable certificate-dashboard
-sudo systemctl start certificate-dashboard
-sudo systemctl status certificate-dashboard
+sudo systemctl enable certificate-generator
+sudo systemctl start certificate-generator
+sudo systemctl status certificate-generator
 ```
 
 ## 📝 Usage
@@ -157,7 +157,7 @@ System automatically removes titles and prefixes:
 ## 📂 Project Structure
 
 ```
-certificate-dashboard/
+certificate-generator/
 ├── app.py                          # Main Flask + SocketIO server
 ├── templates/
 │   └── index.html                  # User interface (SPA)
