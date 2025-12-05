@@ -20,7 +20,7 @@
 A comprehensive and integrated system for automatically generating certificates from Google Docs or Google Slides templates, with full support for Arabic and English variables, and a modern web interface for operation management.
 
 ### ⚡ Performance
-- **High Speed**: Up to 500 certificates/minute (with 10 service accounts)
+- **High Speed**: Up to 50 certificates/minute per account
 - **Parallel Processing**: Automatic distribution across multiple service accounts
 - **Smart Retry**: Automatic retry for failed certificates
 
