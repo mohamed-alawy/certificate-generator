@@ -1,4 +1,4 @@
-# 📜 Certificate Generator
+# Certificate Generator
 
 <div align="center">
 
@@ -9,28 +9,28 @@
 
 **Advanced system for automatic PDF certificate generation from Google Docs/Slides templates with a professional web interface**
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Reviews](#-client-reviews)
+[Features](#features) • [Installation](#installation) • [Usage](#usage) • [Deployment](#deployment-on-server)
 
 </div>
 
 ---
 
-## 🌟 Overview
+## Overview
 
 A comprehensive and integrated system for automatically generating certificates from Google Docs or Google Slides templates, with full support for Arabic and English variables, and a modern web interface for operation management.
 
-### ⚡ Performance
+### Performance
 - **High Speed**: Up to 50 certificates/minute per account
 - **Parallel Processing**: Automatic distribution across multiple service accounts
 - **Smart Retry**: Automatic retry for failed certificates
 
-## ⚙️ Requirements
+## Requirements
 
 - Python 3.8+
 - Google Service Accounts (5-10 accounts recommended for optimal performance)
 - Google Drive Shared Folder
 
-## 📦 Installation
+## Installation
 
 ### 1. Clone the Repository
 ```bash
@@ -64,7 +64,9 @@ python app.py
 
 Open browser at: `http://localhost:5000`
 
-## 🚀 Deployment on Server
+## Deployment on Server
+
+### Quick Start (Manual)
 
 ```bash
 # Run in background
@@ -77,7 +79,90 @@ pkill -f 'python.*app.py'
 tail -f app.log
 ```
 
-## 📝 Usage
+### Professional Setup (Recommended)
+
+The repository includes automated scripts for production deployment:
+
+#### 1. **Check Service Status**
+```bash
+./check-service.sh
+```
+Displays comprehensive service information:
+- Process status (running/stopped)
+- Port status (5000)
+- Recent log entries
+- Disk space and memory usage
+
+#### 2. **Restart Service**
+```bash
+./restart-service.sh
+```
+Safely restarts the application service.
+
+#### 3. Setup Systemd Service (Recommended)
+```bash
+./setup-systemd.sh
+```
+Creates a systemd service with:
+- Auto-start on server reboot
+- Auto-restart on crashes
+- Centralized logging
+- Better process management
+
+**Useful systemd commands:**
+```bash
+sudo systemctl status certificate-dashboard    # Check status
+sudo systemctl restart certificate-dashboard   # Restart
+sudo systemctl stop certificate-dashboard      # Stop
+sudo systemctl start certificate-dashboard     # Start
+sudo journalctl -u certificate-dashboard -f    # View logs
+```
+
+#### 4. Setup Nginx Reverse Proxy (Security)
+```bash
+./setup-nginx.sh
+```
+Installs and configures Nginx as a reverse proxy:
+- Protection from malicious requests
+- Better performance and caching
+- Easy SSL/HTTPS setup
+- Security headers
+- WebSocket support
+
+After setup, access via: `http://YOUR_SERVER_IP` (port 80)
+
+### Deployment Steps Summary
+
+```bash
+# 1. Clone and setup
+git clone https://github.com/mohamed-alawy/certificate-generator.git
+cd certificate-generator
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Add service accounts (*.json files)
+
+# 3. Make scripts executable
+chmod +x *.sh
+
+# 4. Setup systemd service (auto-start & auto-restart)
+./setup-systemd.sh
+
+# 5. Setup Nginx (security & performance)
+./setup-nginx.sh
+
+# Done! Service is now production-ready
+```
+
+### Server Requirements
+- **OS**: Ubuntu 20.04+ / Debian 11+
+- **RAM**: 512 MB minimum, 1 GB recommended
+- **Disk**: 1 GB free space
+- **Python**: 3.8+
+- **Access**: sudo privileges for systemd/nginx setup
+
+## Usage
 
 ### Web Interface
 
@@ -105,36 +190,36 @@ tail -f app.log
 - Checks spreadsheet every 30 seconds (customizable)
 - Perfect for live events
 
-## 🔧 Features
+## Features
 
-### ⚡ High Performance
+### High Performance
 - **Parallel Processing**: Automatic distribution across multiple service accounts
 - **Speed**: Up to 50 certificates/minute per account
 - **Smart Retry**: Automatic retry for failed certificates
 
-### 🧹 Automatic Name Cleaning
+### Automatic Name Cleaning
 System automatically removes titles and prefixes:
 - **Arabic**: استاذ، دكتور، مهندس، محامي، الأستاذ، الدكتور, etc.
 - **English**: Dr, Eng, Mr, Mrs, Prof, Captain, etc.
 - **Customizable**: Add or remove words from the list
 
-### 📄 Comprehensive Template Support
-- ✅ **Google Docs**: Text documents
-- ✅ **Google Slides**: Presentations
-- 🔍 **Auto-Detection**: Automatically recognizes template type
+### Comprehensive Template Support
+- **Google Docs**: Text documents
+- **Google Slides**: Presentations
+- **Auto-Detection**: Automatically recognizes template type
 
-### 🔤 Advanced Variable Support
+### Advanced Variable Support
 - **Variable Format**: `<<VARIABLE>>`
 - **Arabic Support**: `<<الاسم>>`, `<<التاريخ>>`
 - **English Support**: `<<NAME>>`, `<<DATE>>`
 - **Space Support**: `<<اسم المتدرب>>`, `<<Course Name>>`
 
-### 👁️ Monitoring and Tracking
+### Monitoring and Tracking
 - **Live Dashboard**: Real-time progress tracking
 - **Detailed Logs**: Track all operations
 - **Statistics**: Total, Completed, Failed, Speed
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 certificate-generator/
@@ -145,17 +230,21 @@ certificate-generator/
 ├── .gitignore                      # Files excluded from Git
 ├── example-service-account.json    # Service account example
 ├── service-account-*.json          # Service accounts (not in Git)
+├── check-service.sh                # Check service status
+├── restart-service.sh              # Restart service
+├── setup-systemd.sh                # Setup systemd service
+├── setup-nginx.sh                  # Setup Nginx reverse proxy
 └── README.md                       # This file
 ```
 
-## 🔐 Security and Privacy
+## Security and Privacy
 
-- ✅ **Protected Service Files**: `.gitignore` prevents uploading service accounts
-- ✅ **Limited Permissions**: Service accounts only have Drive permissions
-- ✅ **No Local Storage**: No sensitive data saved locally
-- ✅ **HTTPS Ready**: Can run behind Nginx with SSL
+- **Protected Service Files**: `.gitignore` prevents uploading service accounts
+- **Limited Permissions**: Service accounts only have Drive permissions
+- **No Local Storage**: No sensitive data saved locally
+- **HTTPS Ready**: Can run behind Nginx with SSL
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Service Accounts Not Working?
 ```bash
@@ -176,29 +265,59 @@ chmod 600 *.json
 
 ### Service Not Working?
 ```bash
-# Check logs
-tail -50 app.log
+# Quick check with automated script
+./check-service.sh
 
-# Check processes
+# Or manual check
+tail -50 app.log
 ps aux | grep python
 
-# Restart
-pkill -f 'python.*app.py'
-python app.py
+# Restart service
+./restart-service.sh
+
+# If using systemd
+sudo systemctl restart certificate-dashboard
+sudo systemctl status certificate-dashboard
 ```
 
-## 🎯 Use Cases
+### Port Already in Use?
+```bash
+# Find process using port 5000
+sudo lsof -i :5000
+# or
+sudo netstat -tlnp | grep :5000
 
-- 📜 **Training Course Certificates**: Generate thousands of certificates for trainees
-- 🏆 **Recognition Certificates**: Thank you and appreciation certificates for employees
-- 🎓 **Graduation Certificates**: University or school certificates
-- 📋 **Bulk Documents**: Any document requiring individual data customization
+# Kill the process
+sudo kill -9 <PID>
+```
 
-## 🤝 Contributing
+### Nginx Issues?
+```bash
+# Test configuration
+sudo nginx -t
+
+# Check status
+sudo systemctl status nginx
+
+# Restart
+sudo systemctl restart nginx
+
+# View error logs
+sudo tail -f /var/log/nginx/error.log
+```
+
+## Use Cases
+
+- **Training Course Certificates**: Generate thousands of certificates for trainees
+- **Recognition Certificates**: Thank you and appreciation certificates for employees
+- **Graduation Certificates**: University or school certificates
+- **Bulk Documents**: Any document requiring individual data customization
+
+## Contributing
 
 Contributions are welcome! Open an Issue or Pull Request.
 
-## 📄 License
+## License
 
 MIT License - Use freely in personal and commercial projects
 
@@ -211,11 +330,11 @@ MIT License - Use freely in personal and commercial projects
 > Dealt with complete professionalism and flexibility. Engineer Mohamed executed the project with high precision and was responsive to all modifications and additional requirements.
 > 
 > **Highlights:**
-> - ✅ Precise requirements implementation
-> - ✅ Fast and continuous communication
-> - ✅ High code quality
-> - ✅ Post-delivery support
-> - ✅ Flexibility in modifications
+> - Precise requirements implementation
+> - Fast and continuous communication
+> - High code quality
+> - Post-delivery support
+> - Flexibility in modifications
 > 
 > **Result:** A complete system working with high efficiency that saved us hours of manual work.
 > 
