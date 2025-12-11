@@ -63,29 +63,70 @@ state = {
         'cleanup': {
             'enabled': True,
             'remove_words': [
-                'استاذ', 'استاذه', 'استاذة', 'أستاذ', 'أستاذه', 'أستاذة',
-                'ا.', 'أ.', 'ا/', 'أ/',
-                'دكتور', 'دكتوره', 'دكتورة', 'د.', 'د/', 'Dr', 'Dr.',
-                'محامي', 'محاميه', 'محامية', 'م.', 'م/',
-                'مهندس', 'مهندسه', 'مهندسة', 'Eng', 'Eng.',
-                'المهندس', 'المهندسه', 'المهندسة', 'الدكتور', 'الدكتوره', 'الدكتورة',
-                'الأستاذ', 'الأستاذه', 'الأستاذة', 'الاستاذ', 'الاستاذه', 'الاستاذة',
-                'المحامي', 'المحاميه', 'المحامية',
+                # الألقاب العربية - استاذ بكل الأشكال
+                'استاذ', 'استاذه', 'استاذة', 'أستاذ', 'أستاذه', 'أستاذة', 'إستاذ', 'إستاذه', 'إستاذة',
+                'الاستاذ', 'الاستاذه', 'الاستاذة', 'الأستاذ', 'الأستاذه', 'الأستاذة', 'الإستاذ', 'الإستاذه', 'الإستاذة',
+                'استاذ مساعد', 'أستاذ مساعد', 'إستاذ مساعد', 'استاذ مشارك', 'أستاذ مشارك', 'إستاذ مشارك',
+                'استاذ مساعد دكتور', 'أستاذ مساعد دكتور', 'إستاذ مساعد دكتور',
+                'استاذ اصول التربيه المساعده', 'أستاذ أصول التربية المساعدة', 'استاذ اصول التربية المساعدة',
+                
+                # ا. أ. بكل الأشكال
+                'ا.', 'أ.', 'إ.', 'ا/', 'أ/', 'إ/', 'ا:', 'أ:', 'إ:',
+                
+                # دكتور
+                'دكتور', 'دكتوره', 'دكتورة', 'الدكتور', 'الدكتوره', 'الدكتورة',
+                'د.', 'د/', 'د:', 'Dr', 'Dr.', 'DR', 'DR.',
+                
+                # محامي ومهندس
+                'محامي', 'محاميه', 'محامية', 'المحامي', 'المحاميه', 'المحامية', 'م.', 'م/', 'م:',
+                'مهندس', 'مهندسه', 'مهندسة', 'المهندس', 'المهندسه', 'المهندسة', 'Eng', 'Eng.', 'ENG', 'ENG.',
+                
+                # م.د و م.م و أ.م.د
+                'م.د', 'م.م', 'م.د.', 'م.م.', 'أ.م.د', 'أ.م.د.',
+                
+                # الطالب والطالبة
+                'الطالب', 'الطالبه', 'الطالبة', 'طالب', 'طالبه', 'طالبة',
+                
+                # MR/MS بكل الأشكال
+                'Mr', 'Mr.', 'MR', 'MR.', 'Mrs', 'Mrs.', 'MRS', 'MRS.',
+                'Ms', 'Ms.', 'MS', 'MS.', 'Miss', 'MISS', 'miss',
+                
+                # سيد وسيدة
                 'سيد', 'سيده', 'سيدة', 'السيد', 'السيده', 'السيدة',
+                
+                # المستشار والمساعد والمشارك
+                'مستشار', 'مستشاره', 'مستشارة', 'المستشار', 'المستشاره', 'المستشارة',
+                'مساعد', 'مساعده', 'مساعدة', 'المساعد', 'المساعده', 'المساعدة',
+                'المساعد الاداري', 'المساعد الإداري', 'المساعدة الادارية', 'المساعدة الإدارية',
+                'مشارك', 'مشاركه', 'مشاركة', 'المشارك', 'المشاركه', 'المشاركة',
+                
+                # الوكيل والوكيلة
+                'وكيل', 'وكيله', 'وكيلة', 'الوكيل', 'الوكيله', 'الوكيلة',
+                'الوكيل المساعد', 'الوكيلة المساعدة', 'الوكيل المساعد أ',
+                
+                # الاخصائي
+                'اخصائي', 'اخصائيه', 'اخصائية', 'الاخصائي', 'الاخصائيه', 'الاخصائية',
+                'أخصائي', 'أخصائيه', 'أخصائية', 'الأخصائي', 'الأخصائيه', 'الأخصائية',
+                
+                # المشرف التربوي
+                'مشرف تربوي', 'مشرفه تربويه', 'مشرفة تربوية',
+                'المشرف التربوي', 'المشرفه التربويه', 'المشرفة التربوية',
+                
+                # بروفيسور بكل الأشكال
+                'بروفيسور', 'بروفسور', 'بروفيسوره', 'بروفيسورة', 'بروف', 'بروفه',
+                'Prof', 'Prof.', 'PROF', 'PROF.', 'Professor', 'PROFESSOR',
+                
+                # شيخ وحاج
                 'شيخ', 'الشيخ',
                 'حاج', 'حاجه', 'حاجة', 'الحاج', 'الحاجه', 'الحاجة',
-                'عميد', 'العميد',
-                'لواء', 'اللواء',
-                'عقيد', 'العقيد',
-                'رائد', 'الرائد',
-                'نقيب', 'النقيب',
-                'ملازم', 'الملازم',
-                'مستشار', 'مستشاره', 'مستشارة', 'المستشار', 'المستشاره', 'المستشارة',
-                'قاضي', 'القاضي',
-                'كابتن', 'الكابتن', 'Captain', 'Capt',
-                'بروفيسور', 'بروفسور', 'Prof', 'Prof.',
-                'Mr', 'Mr.', 'Mrs', 'Mrs.', 'Ms', 'Ms.', 'Miss',
-                'Sir', 'Madam'
+                
+                # الرتب العسكرية
+                'عميد', 'العميد', 'لواء', 'اللواء', 'عقيد', 'العقيد',
+                'رائد', 'الرائد', 'نقيب', 'النقيب', 'ملازم', 'الملازم',
+                
+                # أخرى
+                'قاضي', 'القاضي', 'كابتن', 'الكابتن', 'Captain', 'Capt', 'CAPT',
+                'Sir', 'SIR', 'Madam', 'MADAM'
             ],
             'remove_before_slash': True,
             'remove_alef': True,
@@ -156,7 +197,7 @@ def column_to_index(col):
     return result - 1 if result > 0 else 0
 
 def clean_name(name):
-    """Clean name by removing titles and prefixes"""
+    """Clean name by removing titles and prefixes from start AND end"""
     cleanup = state['config'].get('cleanup', {})
     
     if not cleanup.get('enabled', True):
@@ -164,9 +205,22 @@ def clean_name(name):
     
     cleaned = name
     
-    # Remove everything before /
+    # Remove everything before FIRST / ONLY (if it appears near the start)
+    # This handles "المهندس / شداد" but keeps "شداد / 1093267308"
     if cleanup.get('remove_before_slash', True) and '/' in cleaned:
-        cleaned = cleaned.split('/')[-1]
+        slash_pos = cleaned.index('/')
+        # Only remove before slash if it's in first 30% of string (likely a title)
+        if slash_pos < len(cleaned) * 0.3:
+            cleaned = cleaned.split('/', 1)[-1]  # Split only on first /
+    
+    # Remove common ID/phone patterns (after main name)
+    # Remove "سجل مدني" and anything after it
+    cleaned = re.sub(r'سجل مدني.*$', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'رقم.*$', '', cleaned, flags=re.IGNORECASE)
+    # Remove standalone numbers (IDs, phones) - 7+ digits
+    cleaned = re.sub(r'\s*[/،,]\s*\d{7,}.*$', '', cleaned)
+    # Remove trailing / with numbers
+    cleaned = re.sub(r'\s*/\s*\d+.*$', '', cleaned)
     
     # Get words to remove
     words = cleanup.get('remove_words', [])
@@ -174,20 +228,53 @@ def clean_name(name):
     # Sort by length (longest first) to avoid partial matches
     words_sorted = sorted(words, key=len, reverse=True)
     
-    # Remove each word from the beginning
+    # Remove each word from the BEGINNING
     for word in words_sorted:
         pattern = r'^\s*' + re.escape(word) + r'\s*'
         cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
     
+    # Remove each word from the END (like "استاذ اصول التربيه المساعده")
+    for word in words_sorted:
+        pattern = r'\s*' + re.escape(word) + r'\s*$'
+        cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
+    
+    # Remove leading punctuation (: / , etc) that might remain after title removal
+    cleaned = re.sub(r'^[\s:/،,.-]+', '', cleaned)
+    cleaned = re.sub(r'[\s:/،,.-]+$', '', cleaned)
+    
     # Remove standalone alef at start (ا or أ followed by space)
     if cleanup.get('remove_alef', True):
-        cleaned = re.sub(r'^[اأ]\s+', '', cleaned)
+        cleaned = re.sub(r'^[اأإ]\s+', '', cleaned)
     
-    # Trim spaces
+    # Trim spaces and remove any remaining / at start or end
     if cleanup.get('trim_spaces', True):
         cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        cleaned = cleaned.strip('/')  # Remove / from start/end
+        cleaned = cleaned.strip()  # Final trim
     
     return cleaned
+
+def normalize_name_for_comparison(name):
+    """Normalize name for duplicate detection (handle typos)"""
+    normalized = name
+    
+    # Convert to lowercase for comparison
+    normalized = normalized.lower()
+    
+    # Normalize Arabic characters
+    normalized = normalized.replace('أ', 'ا')
+    normalized = normalized.replace('إ', 'ا')
+    normalized = normalized.replace('آ', 'ا')
+    normalized = normalized.replace('ى', 'ي')
+    normalized = normalized.replace('ة', 'ه')
+    
+    # Remove all diacritics (tashkeel)
+    normalized = re.sub(r'[\u064B-\u065F]', '', normalized)
+    
+    # Normalize multiple spaces to single space
+    normalized = re.sub(r'\s+', ' ', normalized).strip()
+    
+    return normalized
 
 # Lock for thread-safe state updates
 state_lock = threading.Lock()
@@ -542,20 +629,82 @@ def get_pending_rows():
         else:
             name_col_idx = column_to_index('C')  # Default to C
         
+        # Check for duplicate names and mark them
+        seen_names = {}
+        rows_to_mark = {}  # {row_number: first_occurrence_row}
+        
+        for i, row in enumerate(rows):
+            if len(row) > name_col_idx and row[name_col_idx] and row[name_col_idx].strip():
+                raw_name = row[name_col_idx].strip()
+                cleaned_name = clean_name(raw_name)
+                # Normalize for comparison to catch typos like "على" vs "علي"
+                normalized_name = normalize_name_for_comparison(cleaned_name)
+                actual_row = start_row + i
+                
+                if normalized_name in seen_names:
+                    # Found duplicate - mark it with first occurrence row
+                    first_row = seen_names[normalized_name]
+                    rows_to_mark[actual_row] = first_row
+                    add_log(f'⚠️ Duplicate: "{raw_name}" (cleaned: "{cleaned_name}") at row {actual_row} = row {first_row}', 'warning')
+                else:
+                    seen_names[normalized_name] = actual_row
+        
+        # Mark duplicate rows with "مكرر - صف X" in the link column
+        if rows_to_mark:
+            add_log(f'🔖 Marking {len(rows_to_mark)} duplicate rows...', 'info')
+            mark_duplicate_rows(config['sheet_id'], rows_to_mark, config['link_column'], sheets)
+            
+            # Re-read the sheet after marking duplicates
+            result = sheets.spreadsheets().values().get(
+                spreadsheetId=config['sheet_id'],
+                range=sheet_range
+            ).execute()
+            rows = result.get('values', [])
+        
         todo = []
         for i, row in enumerate(rows):
-            has_link = len(row) > link_col_idx and row[link_col_idx] and row[link_col_idx].startswith('http')
+            has_link = len(row) > link_col_idx and row[link_col_idx] and row[link_col_idx].strip()
+            # Check if marked as duplicate (starts with "مكرر")
+            is_duplicate = has_link and row[link_col_idx].strip().startswith('مكرر')
             has_name = len(row) > name_col_idx and row[name_col_idx] and row[name_col_idx].strip()
             
+            # Only add to todo if has name and no link (or link is http - real link)
             if has_name and not has_link:
                 # Store actual row number in sheet (1-based)
                 actual_row = start_row + i
                 todo.append((actual_row, row))
+            elif has_name and is_duplicate:
+                # Skip duplicates silently (already logged above)
+                pass
         
         return todo
     except Exception as e:
         add_log(f'❌ Error reading sheet: {e}', 'error')
         return []
+
+def mark_duplicate_rows(sheet_id, row_mapping, link_column, sheets):
+    """Mark duplicate rows with 'مكرر - صف X' in the link column"""
+    try:
+        # Prepare batch update
+        # row_mapping is {duplicate_row: first_occurrence_row}
+        data = []
+        for dup_row, first_row in row_mapping.items():
+            data.append({
+                'range': f'{link_column}{dup_row}',
+                'values': [[f'مكرر - صف {first_row}']]
+            })
+        
+        if data:
+            sheets.spreadsheets().values().batchUpdate(
+                spreadsheetId=sheet_id,
+                body={
+                    'valueInputOption': 'RAW',
+                    'data': data
+                }
+            ).execute()
+            add_log(f'✅ Marked {len(row_mapping)} duplicate rows', 'success')
+    except Exception as e:
+        add_log(f'⚠️ Could not mark duplicate rows: {e}', 'warning')
 
 def retry_failed_certificates():
     """Retry generation for certificates that don't have links"""
