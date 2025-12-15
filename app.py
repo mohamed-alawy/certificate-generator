@@ -72,6 +72,8 @@ state = {
                 
                 # ا. أ. بكل الأشكال
                 'ا.', 'أ.', 'إ.', 'ا/', 'أ/', 'إ/', 'ا:', 'أ:', 'إ:',
+                # Variants with underscore or dash (sometimes seen in sheets)
+                'ا_', 'أ_', 'إ_', 'ا -', 'أ -', 'إ -', 'ا-', 'أ-', 'إ-',
                 
                 # دكتور
                 'دكتور', 'دكتوره', 'دكتورة', 'الدكتور', 'الدكتوره', 'الدكتورة',
@@ -238,13 +240,13 @@ def clean_name(name):
         pattern = r'\s*' + re.escape(word) + r'\s*$'
         cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
     
-    # Remove leading punctuation (: / , etc) that might remain after title removal
-    cleaned = re.sub(r'^[\s:/،,.-]+', '', cleaned)
-    cleaned = re.sub(r'[\s:/،,.-]+$', '', cleaned)
+    # Remove leading/trailing punctuation (include underscore and dashes)
+    cleaned = re.sub(r'^[\s:/،,._\-\u2013\u2014]+', '', cleaned)
+    cleaned = re.sub(r'[\s:/،,._\-\u2013\u2014]+$', '', cleaned)
     
-    # Remove standalone alef at start (ا or أ followed by space)
+    # Remove standalone alef at start (ا or أ possibly followed by punctuation)
     if cleanup.get('remove_alef', True):
-        cleaned = re.sub(r'^[اأإ]\s+', '', cleaned)
+        cleaned = re.sub(r'^[اأإ][\s:_\-\u2013\u2014]+', '', cleaned)
     
     # Trim spaces and remove any remaining / at start or end
     if cleanup.get('trim_spaces', True):
