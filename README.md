@@ -202,6 +202,7 @@ System automatically removes titles and prefixes:
 - **Arabic**: استاذ، دكتور، مهندس، محامي، الأستاذ، الدكتور, etc.
 - **English**: Dr, Eng, Mr, Mrs, Prof, Captain, etc.
 - **Customizable**: Add or remove words from the list
+- **Note (Dec 2025)**: Fixed handling of feminine/alternate suffixes for titles (e.g., removing `شيخة`/`شيخه` without leaving a stray `ه` or `ة`).
 
 ### Comprehensive Template Support
 - **Google Docs**: Text documents

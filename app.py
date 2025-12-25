@@ -229,16 +229,24 @@ def clean_name(name):
     
     # Sort by length (longest first) to avoid partial matches
     words_sorted = sorted(words, key=len, reverse=True)
-    
-    # Remove each word from the BEGINNING
-    for word in words_sorted:
-        pattern = r'^\s*' + re.escape(word) + r'\s*'
-        cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
-    
-    # Remove each word from the END (like "استاذ اصول التربيه المساعده")
-    for word in words_sorted:
-        pattern = r'\s*' + re.escape(word) + r'\s*$'
-        cleaned = re.sub(pattern, '', cleaned, flags=re.IGNORECASE)
+
+    # Build robust patterns to remove titles from start or end as whole words.
+    # Fix: Some titles have feminine or alternate final letters (e.g., 'شيخة'/'شيخه').
+    # Previously we removed 'شيخ' without enforcing a boundary, which could leave a stray
+    # final character like 'ه' or 'ة' (e.g. 'شيخه محمد' -> 'ه محمد'). To avoid that,
+    # accept an optional final 'ة' or 'ه' as part of the matched title and repeat removal
+    # so multiple adjacent titles are stripped.
+    if words_sorted:
+        words_escaped = [re.escape(w) for w in words_sorted]
+        begin_pattern = r'^\s*(?:' + '|'.join(words_escaped) + r')(?:[هة])?\s*'
+        end_pattern = r'\s*(?:' + '|'.join(words_escaped) + r')(?:[هة])?\s*$'
+
+        # Repeat removal until no further changes (handles multiple titles)
+        prev = None
+        while prev != cleaned:
+            prev = cleaned
+            cleaned = re.sub(begin_pattern, '', cleaned, flags=re.IGNORECASE)
+            cleaned = re.sub(end_pattern, '', cleaned, flags=re.IGNORECASE)
     
     # Remove leading/trailing punctuation (include underscore and dashes)
     cleaned = re.sub(r'^[\s:/،,._\-\u2013\u2014]+', '', cleaned)
@@ -253,7 +261,14 @@ def clean_name(name):
         cleaned = re.sub(r'\s+', ' ', cleaned).strip()
         cleaned = cleaned.strip('/')  # Remove / from start/end
         cleaned = cleaned.strip()  # Final trim
-    
+
+    # Remove single-letter tokens at start or end (e.g., 'د ', 'د.', 'A ')
+    if cleanup.get('remove_single_letter_tokens', True):
+        # Start: single Arabic/Latin letter optionally followed by a dot and spaces
+        cleaned = re.sub(r'^\s*(?:[A-Za-z\u0620-\u06FF])(?:\.)?\s+', '', cleaned)
+        # End: single Arabic/Latin letter optionally preceded by spaces and optional dot
+        cleaned = re.sub(r'\s+(?:[A-Za-z\u0620-\u06FF])(?:\.)?\s*$', '', cleaned)
+
     return cleaned
 
 def normalize_name_for_comparison(name):
