@@ -230,23 +230,20 @@ def clean_name(name):
     # Sort by length (longest first) to avoid partial matches
     words_sorted = sorted(words, key=len, reverse=True)
 
-    # Build robust patterns to remove titles from start or end as whole words.
-    # Fix: Some titles have feminine or alternate final letters (e.g., 'شيخة'/'شيخه').
-    # Previously we removed 'شيخ' without enforcing a boundary, which could leave a stray
-    # final character like 'ه' or 'ة' (e.g. 'شيخه محمد' -> 'ه محمد'). To avoid that,
-    # accept an optional final 'ة' or 'ه' as part of the matched title and repeat removal
-    # so multiple adjacent titles are stripped.
+    # Build robust patterns to remove titles from start as whole words.
+    # We DO NOT remove from end to protect family names like "El Sayed" (السيد).
+    # We enforce word boundaries to prevent partial matches (e.g. chopping 'Ahmed').
     if words_sorted:
         words_escaped = [re.escape(w) for w in words_sorted]
-        begin_pattern = r'^\s*(?:' + '|'.join(words_escaped) + r')(?:[هة])?\s*'
-        end_pattern = r'\s*(?:' + '|'.join(words_escaped) + r')(?:[هة])?\s*$'
+        # Match at start, followed by space or end of string.
+        begin_pattern = r'^\s*(?:' + '|'.join(words_escaped) + r')(?:[هة])?(?=\s|$)\s*'
 
         # Repeat removal until no further changes (handles multiple titles)
         prev = None
         while prev != cleaned:
             prev = cleaned
+            # Only remove from start
             cleaned = re.sub(begin_pattern, '', cleaned, flags=re.IGNORECASE)
-            cleaned = re.sub(end_pattern, '', cleaned, flags=re.IGNORECASE)
     
     # Remove leading/trailing punctuation (include underscore and dashes)
     cleaned = re.sub(r'^[\s:/،,._\-\u2013\u2014]+', '', cleaned)
